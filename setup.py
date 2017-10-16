@@ -12,18 +12,19 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
+    'numpy>=1.13.0',
+    'scipy>=0.9.0',
+    'matplotlib>=0.2.1',
+    'pyBigWig>=0.3.5',
     'Click>=6.0',
-    # TODO: put package requirements here
 ]
 
 setup_requirements = [
     'pytest-runner',
-    # TODO(saketkc): put setup requirements (distutils extensions, etc.) here
 ]
 
 test_requirements = [
     'pytest',
-    # TODO: put package test requirements here
 ]
 
 setup(
