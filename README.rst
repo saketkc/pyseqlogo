@@ -105,7 +105,6 @@ Default mode is bits
 .. figure:: images/output_3_0.png
    :alt: png
 
-   png
 
 Colorscheme
 ===========
@@ -119,8 +118,6 @@ Colorscheme
 .. figure:: images/output_5_0.png
    :alt: png
 
-   png
-
 Counts as input
 ===============
 
@@ -133,7 +130,6 @@ Counts as input
 .. figure:: images/output_7_0.png
    :alt: png
 
-   png
 
 Different font!
 ===============
@@ -145,8 +141,6 @@ Different font!
 
 .. figure:: images/output_9_0.png
    :alt: png
-
-   png
 
 Plot conservation scores
 ========================
@@ -165,7 +159,6 @@ Plot conservation scores
 
 .. figure:: images/output_11_0.png
    :alt: png
-
 
 
 Credits
