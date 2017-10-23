@@ -27,8 +27,7 @@ Python package to plot sequence logos
 .. code:: python
 
     from pyseqlogo.pyseqlogo import draw_logo, setup_axis
-    from pyseqlogo.format_utils import read_alignment
-    from Bio import motifs
+
 
 .. code:: python
 
