@@ -25,16 +25,24 @@ Python package to plot sequence logos
 * Documentation: https://pyseqlogo.readthedocs.io.
 
 
-Features
+Examples
 --------
 
-* TODO
+See notebook_
+
+ToDo
+----
+
+* Add support for MEME/Jaspar/count formats.
+
+
 
 Credits
 ---------
 
 This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
 
+.. _notebook: notebooks/Example01.ipynb
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
 
