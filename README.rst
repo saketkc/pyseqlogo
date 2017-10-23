@@ -22,7 +22,7 @@ Python package to plot sequence logos
 
 
 * Free software: MIT license
-* Documentation: https://pyseqlogo.readthedocs.io.
+* Documentation (Pending): https://pyseqlogo.readthedocs.io.
 
 .. code:: python
 
