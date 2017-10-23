@@ -166,7 +166,6 @@ Plot conservation scores
 .. figure:: images/output_11_0.png
    :alt: png
 
-   png
 
 
 Credits
