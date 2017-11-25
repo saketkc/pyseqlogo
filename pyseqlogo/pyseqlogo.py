@@ -12,6 +12,7 @@ from matplotlib.ticker import MultipleLocator
 from matplotlib.ticker import FormatStrFormatter
 from .utils import despine
 from .colorschemes import default_colorschemes
+from matplotlib.lines import Line2D
 
 from .format_utils import process_data
 
@@ -80,7 +81,102 @@ def setup_axis(ax, axis='x', majorticks=10,
 
 
 def _draw_text(height_matrix, ax, fontfamily,
-               colorscheme='classic', debug=False):
+               colorscheme='classic', scalex=1, is_protein=False):
+    xshifts_list = []
+    fig = ax.get_figure()
+    bbox = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+    width, height = bbox.width, bbox.height
+    width *= fig.dpi
+    height *= fig.dpi
+    fontsize = (height/1.7) * 72.0/fig.dpi#/72.0
+    font = _setup_font(fontsize=fontsize, fontfamily=fontfamily)
+    xshift = 160#ax.transData.transform((0, 0))[0]
+    xshifts_list.append(xshift)
+    #30
+    #print (ax.transData.transform((1, 0))[0] - ax.transData.transform((2, 0))[0])
+    trans_offset = transforms.offset_copy(ax.transData,
+                                          fig=fig,
+                                          x=xshift,
+                                          y=0,
+                                          units='dots')
+    ax.trans_offsets = [trans_offset]
+    #ax.axvline(1)##, transform=trans_offset)
+    for xindex, xcol in enumerate(height_matrix):
+        yshift = 0
+        total_shift = 0
+        total_score = 0
+        for basechar, basescore in xcol:
+            txt = ax.text(0,
+                          0,
+                          basechar,
+                          transform=trans_offset,
+                          fontsize=fontsize,
+                          color=default_colorschemes[colorscheme][basechar],
+                          va='baseline',
+                          family='monospace',
+                          ha='center',
+                          fontproperties=font)
+
+            txt.set_path_effects([Scale(scalex,  basescore)])
+            fig.canvas.draw()
+            window_ext = txt.get_window_extent(txt._renderer)#(fig.canvas.renderer) #txt._renderer)
+            if basescore > 0.3:
+                yshift = window_ext.height * basescore - fontsize/10# fontsize/4#/1.20 #*.85 #* fig.dpi/72.0
+            else:
+                yshift = window_ext.height * basescore# - fontsize/11# fontsize/4#/1.20 #*.85 #* fig.dpi/72.0
+
+            total_score += basescore
+            trans_offset = transforms.offset_copy(#ax.transData,
+                                                  txt._transform,
+                                                  fig=fig,
+                                                  y=yshift,
+                                                  #x=xshift,
+                                                  units='dots')
+        if is_protein:
+            trans_offset1 = transforms.offset_copy(ax.transData,
+                                                   fig=fig,
+                                                   x=xshift+(window_ext.width*(scalex-2)+10*(scalex-2)),
+                                                   y=0,
+                                                   units='dots')
+
+        else:
+            trans_offset1 = transforms.offset_copy(ax.transData,
+                                                   fig=fig,
+                                                   x=xshift,
+                                                   y=0,
+                                                   units='dots')
+        xshift += window_ext.width*scalex+10*scalex
+        xshifts_list.append(xshift)
+
+        trans_offset = transforms.offset_copy(ax.transData,
+                                              fig=fig,
+                                              x=xshift,
+                                              y=0,
+                                              units='dots')
+        line = Line2D([0,0], [0,-0.1], transform=trans_offset1, linewidth=2, clip_on=False, color='black')
+        ax.add_line(line)
+        ax.text(0,-0.2, str(xindex+1), transform=trans_offset1, ha='center')
+        ax.trans_offsets.append(trans_offset1)
+
+    """
+    xinv_list = []
+    for xshift in xshifts_list:
+        inv = ax.transData.inverted()
+        xindex_inv = inv.transform((xshift, 0))
+        xinv_list.append(xindex_inv[0])
+    print (xinv_list)
+    ax.set_xticks(xinv_list) #range(1, len(data) + 1))
+    ax.set_xticklabels(xinv_list)#range(0, len(data) + 1), rotation=90)
+    ##ax.set_xticks(xshifts_list)#, transform=ax.transData)
+    ##ax.set_xticklabels(range(1, len(xshifts_list) + 1), rotation=90, transform=ax.transData, horizontalalignment='center')
+    """
+    ax.set_xticks([])#, transform=ax.transData)
+    ax.set_xticklabels([])
+    return xshifts_list
+
+
+def _draw_text_defunct(height_matrix, ax, fontfamily,
+               colorscheme='classic', scalex=1, debug=False):
     fig = ax.get_figure()
     bbox = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
     width, height = bbox.width, bbox.height
@@ -90,15 +186,20 @@ def _draw_text(height_matrix, ax, fontfamily,
     font = _setup_font(fontsize=fontsize, fontfamily=fontfamily)
     trans_offset = transforms.offset_copy(ax.transData,
                                           fig=fig,
-                                          x=1,
+                                          x=scalex,
                                           y=0,
                                           units='points')
+    xshift = 1
     for xindex, xcol in enumerate(height_matrix):
         yshift = 0
         total_shift = 0
         total_score = 0
+        if scalex == 1:
+            xshift = 1
+        else:
+            xshift = 3
         for basechar, basescore in xcol:
-            txt = ax.text(xindex + 1,
+            txt = ax.text(xindex + xshift,
                             0,
                             basechar,
                             transform=trans_offset,
@@ -110,7 +211,7 @@ def _draw_text(height_matrix, ax, fontfamily,
                             #va='baseline',
                             fontproperties=font,
                         )
-            txt.set_path_effects([Scale(1.0,  basescore)])
+            txt.set_path_effects([Scale(scalex,  basescore)])
             fig.canvas.draw()
             window_ext = txt.get_window_extent(txt._renderer)#(fig.canvas.renderer) #txt._renderer)
             if basescore > 0.3:
@@ -126,12 +227,29 @@ def _draw_text(height_matrix, ax, fontfamily,
                                                   fig=fig,
                                                   y=yshift,
                                                   units='dots')
+        xshift = window_ext.width/72.0
         trans_offset = transforms.offset_copy(ax.transData,
                                               fig=fig,
-                                              x=1,
+                                              x=scalex,
                                               y=0,
                                               units='dots')
 
+
+
+def draw_protein(data, ax, data_type='bits', seq_type='dna',
+                 yaxis='bits', colorscheme='classic',
+                 fontfamily='Arial', scalex=3
+                 ):
+    #ax.set_xticks(range(1, len(data)*3 + 1))
+    if yaxis == 'probability':
+        ax.set_yticks(range(0, 2))
+    elif yaxis == 'bits':
+        ax.set_yticks(range(0, 3))
+
+    #ax.set_xticklabels(range(1, len(data) + 1), rotation=90)
+    setup_axis(ax, 'y', majorticks=1, minorticks=0.1)
+
+    _draw_text(data, ax, fontfamily, colorscheme, scalex=scalex, is_protein=True)
 
 def draw_logo(data, data_type='bits', seq_type='dna',
               yaxis='bits', colorscheme='classic',
@@ -166,16 +284,17 @@ def draw_logo(data, data_type='bits', seq_type='dna',
         sys.exit(1)
 
     fig, axarr = plt.subplots(nrow, ncol, squeeze=False)
-    fig.set_size_inches((len(data)*ncol+0.5+2*padding, 3*nrow))
+    fig.set_size_inches(((len(data))*ncol+0.5+2*padding, 3*nrow))
 
     ax = axarr[0,0]
-    ax.set_xticks(range(1, len(data) + 1))
+    #ax.set_xticks(range(1, len(data) + 1))
+    ax.set_xticks(range(len(data)))
     if yaxis == 'probability':
         ax.set_yticks(range(0, 2))
     elif yaxis == 'bits':
         ax.set_yticks(range(0, 3))
 
-    ax.set_xticklabels(range(1, len(data) + 1), rotation=90)
+    #ax.set_xticklabels(range(1, len(data) + 1), rotation=90)
     setup_axis(ax, 'y', majorticks=1, minorticks=0.1)
 
     if data_type != 'bits':
@@ -184,11 +303,12 @@ def draw_logo(data, data_type='bits', seq_type='dna',
         ic = data
 
     if yaxis == 'probability':
-        _draw_text(pfm, ax, fontfamily, colorscheme)
+        xshifts_list = _draw_text(pfm, ax, fontfamily, colorscheme)
     else:
-        _draw_text(ic, ax, fontfamily, colorscheme)
+        xshifts_list = _draw_text(ic, ax, fontfamily, colorscheme)
 
     plt.draw()
+    """
     for i in range(nrow):
         for j in range(ncol):
             if i==j==0:
@@ -198,9 +318,11 @@ def draw_logo(data, data_type='bits', seq_type='dna',
             axi.set_xticklabels(range(1, len(data) + 1), rotation=90)
             #axi.set_xmargin(0.1)
             axi.get_shared_x_axes().join(axi, ax)
-            axi.set_xticks(range(1, len(data) + 1))
-            despine(ax=axarr[i, j], trim=True, offset=25)
-
-    despine(ax=ax, trim=True, offset=25)
+            #despine(ax=axarr[i, j], trim=True, offset=25)
+    """
+    #despine(ax=ax, trim=True, offset=25)
+    ##ticks = Ticks(transform=ax.transData)
+    ##ticklabels = TickLabels(self.frame,                                  transform=None,  # display coordinates
+     ##                                figure=parent_axes.get_figure())
     return fig, axarr
 
