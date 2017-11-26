@@ -155,22 +155,13 @@ def _draw_text(height_matrix, ax, fontfamily,
                                               units='dots')
         line = Line2D([0,0], [0,-0.1], transform=trans_offset1, linewidth=2, clip_on=False, color='black')
         ax.add_line(line)
+        if xindex<len(height_matrix)-1:
+            line = Line2D([0,1], [0,0], transform=trans_offset1, linewidth=0.5, clip_on=False, color='black')
+            ax.add_line(line)
         ax.text(0,-0.2, str(xindex+1), transform=trans_offset1, ha='center')
         ax.trans_offsets.append(trans_offset1)
 
-    """
-    xinv_list = []
-    for xshift in xshifts_list:
-        inv = ax.transData.inverted()
-        xindex_inv = inv.transform((xshift, 0))
-        xinv_list.append(xindex_inv[0])
-    print (xinv_list)
-    ax.set_xticks(xinv_list) #range(1, len(data) + 1))
-    ax.set_xticklabels(xinv_list)#range(0, len(data) + 1), rotation=90)
-    ##ax.set_xticks(xshifts_list)#, transform=ax.transData)
-    ##ax.set_xticklabels(range(1, len(xshifts_list) + 1), rotation=90, transform=ax.transData, horizontalalignment='center')
-    """
-    ax.set_xticks([])#, transform=ax.transData)
+    ax.set_xticks([])
     ax.set_xticklabels([])
     return xshifts_list
 
@@ -284,7 +275,7 @@ def draw_logo(data, data_type='bits', seq_type='dna',
         sys.exit(1)
 
     fig, axarr = plt.subplots(nrow, ncol, squeeze=False)
-    fig.set_size_inches(((len(data))*ncol+0.5+2*padding, 3*nrow))
+    fig.set_size_inches(((len(data)+1)*ncol, 3*nrow))
 
     ax = axarr[0,0]
     #ax.set_xticks(range(1, len(data) + 1))
@@ -307,22 +298,12 @@ def draw_logo(data, data_type='bits', seq_type='dna',
     else:
         xshifts_list = _draw_text(ic, ax, fontfamily, colorscheme)
 
-    plt.draw()
-    """
     for i in range(nrow):
         for j in range(ncol):
+            despine(ax=axarr[i, j], trim=False, top=True, right=True, bottom=True)
             if i==j==0:
                 continue
             axi = axarr[i, j]
-            axi.set_xticks(range(1, len(data) + 1))
-            axi.set_xticklabels(range(1, len(data) + 1), rotation=90)
-            #axi.set_xmargin(0.1)
             axi.get_shared_x_axes().join(axi, ax)
-            #despine(ax=axarr[i, j], trim=True, offset=25)
-    """
-    #despine(ax=ax, trim=True, offset=25)
-    ##ticks = Ticks(transform=ax.transData)
-    ##ticklabels = TickLabels(self.frame,                                  transform=None,  # display coordinates
-     ##                                figure=parent_axes.get_figure())
     return fig, axarr
 
