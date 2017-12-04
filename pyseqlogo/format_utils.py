@@ -146,6 +146,18 @@ def read_alignment(infile, data_type='fasta',
 
     """
     alignment = AlignIO.read(infile, data_type)
+    data = []
+    for aln in alignment:
+        data.append([x for x in str(aln.seq)])
+    df = pd.DataFrame(data)
+    df_counts = df.apply(pd.value_counts,0)
+    counts_dict = df_counts.to_dict(orient='index')
+    counts = {}
+    for key, val in counts_dict.iteritems():
+        counts[key] = list(val.values())
+    return counts
+
+    """
     summary_align = AlignInfo.SummaryInfo(alignment)
     if seq_type == 'dna':
         info_content = summary_align.information_content(e_freq_table = naive_freq_tables['dna'],
@@ -159,7 +171,8 @@ def read_alignment(infile, data_type='fasta',
         info_content = summary_align.information_content(e_freq_table = naive_freq_tables['aa'],
                                                          pseudo_count = pseudo_count)
     motif = create_motif_from_alignment(alignment)
-    return (motif, info_content)
+    return (motif, summary_align.ic_vector)
+    """
 
 def create_motif_from_alignment(alignment):
     """Create motif form an alignment object
@@ -191,14 +204,20 @@ def process_data(data, data_type='counts', seq_type='dna'):
         pfm, total = count_to_pfm(data)
         ic = calc_relative_information(pfm, total)
     elif data_type in ['fasta',  'stockholm']:
-        motif, ic = read_alignment(data, data_type, seq_type)
-        pfm = motif.counts.normalize(pseudocounts=1)
+        #motif, ic = read_alignment(data, data_type, seq_type)
+        #pfm = motif.counts.normalize(pseudocounts=1)
+        data = read_alignment(data, data_type, seq_type)
+        pfm, total = count_to_pfm(data)
+        ic = calc_relative_information(pfm, total)
     elif data_type in ['alignace', 'meme', 'mast',
                        'transfac', 'pfm', 'sites', 'jaspar']:
-        motif = motifs.read(open(data, 'r'), data_type)
-        pfm = motif.counts.normalize(psuedocounts=1)
+        if data_type == 'transfac':
+            motif = motifs.parse(open(data, 'r'),  "TRANSFAC")[0]
+            pfm = dict(motif.counts.normalize())
+        else:
+            motif = motifs.read(open(data, 'r'), data_type)
+            pfm = motif.counts.normalize(psuedocounts=1)
         total = motif.counts
         ic = calc_relative_information(pfm, total)
-
     return (format_matrix(pfm), format_matrix(ic))
 
