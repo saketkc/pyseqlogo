@@ -174,7 +174,7 @@ def _draw_text(height_matrix, ax, fontfamily,
             fig.canvas.draw()
             window_ext = txt.get_window_extent(txt._renderer)#(fig.canvas.renderer) #txt._renderer)
             if basescore > 0.3:
-                yshift = window_ext.height * basescore - fontsize/10# fontsize/4#/1.20 #*.85 #* fig.dpi/72.0
+                yshift = window_ext.height * basescore# - fontsize/10# fontsize/4#/1.20 #*.85 #* fig.dpi/72.0
             else:
                 yshift = window_ext.height * basescore# - fontsize/11# fontsize/4#/1.20 #*.85 #* fig.dpi/72.0
 
