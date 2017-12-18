@@ -53,7 +53,6 @@ def exact_error(pfm, n):
     done = False
     exact_error = 0
     while not done:
-        print (na, nc, ng, nt)
         exact_error += sum([-p * np.log2(p)
                             for p in [na / n, nc / n, ng / n, nt / n]])
         if nt <= 0:
@@ -99,7 +98,6 @@ def calc_info_matrix(pfm, n_occur, correction_type='approx'):
     else:
         error = exact_error(pfm)
     shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases]) for l in range(0, n)]
-    #print (pd.DataFrame(shannon_entropy))
     info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l]))
                                     for b in bases]) for l in range(0, n)]
     #info_matrix[info_matrix<0] = 0
@@ -113,8 +111,6 @@ def calc_relative_information(pfm, n_occur, correction_type='approx'):
         info_matrix = calc_info_matrix(pfm, n_occur)
     else:
         info_matrix = calc_info_matrix(pfm, 'exact')
-    #print('Info matrix: ')
-    #print(pd.DataFrame(info_matrix))
     relative_info = {base: [np.nan_to_num(prob * info) for prob, info in zip(pfm[base], info_matrix)] for base in bases}
     return relative_info
 
@@ -211,13 +207,17 @@ def process_data(data, data_type='counts', seq_type='dna'):
         ic = calc_relative_information(pfm, total)
     elif data_type in ['alignace', 'meme', 'mast',
                        'transfac', 'pfm', 'sites', 'jaspar']:
-        if data_type == 'transfac':
-            motif = motifs.parse(open(data, 'r'),  "TRANSFAC")[0]
+        if data_type in ['jaspar', 'transfac']:
+            motif = motifs.parse(open(data, 'r'),  data_type.upper())[0]
             pfm = dict(motif.counts.normalize())
+            total = sum(list(motif.counts.viewvalues())[0])
         else:
             motif = motifs.read(open(data, 'r'), data_type)
-            pfm = motif.counts.normalize(psuedocounts=1)
-        total = motif.counts
+            try:
+                pfm = motif.counts.normalize(psuedocounts=1)
+            except:
+                pfm = motif.counts.normalize()
+            total = motif.counts
         ic = calc_relative_information(pfm, total)
     return (format_matrix(pfm), format_matrix(ic))
 
