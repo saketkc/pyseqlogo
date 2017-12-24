@@ -146,12 +146,15 @@ def read_alignment(infile, data_type='fasta',
     for aln in alignment:
         data.append([x for x in str(aln.seq)])
     df = pd.DataFrame(data)
-    df_counts = df.apply(pd.value_counts,0)
+    df_counts = df.apply(pd.value_counts, 0)
+    total = df_counts[[0]].sum()
+    df_counts =  df_counts[df_counts.index != '-']
+    # Remove - from counts
     counts_dict = df_counts.to_dict(orient='index')
     counts = {}
     for key, val in counts_dict.iteritems():
         counts[key] = list(val.values())
-    return counts
+    return counts, total
 
     """
     summary_align = AlignInfo.SummaryInfo(alignment)
@@ -202,8 +205,8 @@ def process_data(data, data_type='counts', seq_type='dna'):
     elif data_type in ['fasta',  'stockholm']:
         #motif, ic = read_alignment(data, data_type, seq_type)
         #pfm = motif.counts.normalize(pseudocounts=1)
-        data = read_alignment(data, data_type, seq_type)
-        pfm, total = count_to_pfm(data)
+        data, total = read_alignment(data, data_type, seq_type)
+        pfm, _ = count_to_pfm(data)
         ic = calc_relative_information(pfm, total)
     elif data_type in ['alignace', 'meme', 'mast',
                        'transfac', 'pfm', 'sites', 'jaspar']:

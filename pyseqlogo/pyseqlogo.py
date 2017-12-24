@@ -5,6 +5,8 @@ from __future__ import division
 from __future__ import absolute_import
 import sys
 import matplotlib.pyplot as plt
+
+import numpy as np
 from matplotlib.patheffects import RendererBase
 from matplotlib import transforms
 from matplotlib.font_manager import FontProperties
@@ -240,7 +242,7 @@ def draw_protein(data, ax, data_type='bits', seq_type='dna',
 
 def draw_logo(data, data_type='bits', seq_type='dna',
               yaxis='bits', colorscheme='classic',
-              nrow=1, ncol=1, padding=0,
+              nrow=1, ncol=1, padding=0, draw_range=None,
               coordinate_type='data', draw_axis=False,
               fontfamily='Arial',  debug=False):
     """Draw sequence logo
@@ -293,6 +295,11 @@ def draw_logo(data, data_type='bits', seq_type='dna',
     else:
         ic = data
 
+    if draw_range:
+    #    ic = np.array(ic)
+        ic = ic[draw_range[0]:draw_range[1]]
+        pfm = pfm[draw_range[0]:draw_range[1]]
+    print(pfm)
     if coordinate_type == 'data':
         ax = axarr[0,0]
         ax.set_xticks(range(1, len(data) + 1))
