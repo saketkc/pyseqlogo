@@ -294,12 +294,12 @@ def draw_logo(data, data_type='bits', seq_type='dna',
         pfm, ic = process_data(data, data_type=data_type, seq_type=seq_type)
     else:
         ic = data
+        pfm = data
 
     if draw_range:
     #    ic = np.array(ic)
         ic = ic[draw_range[0]:draw_range[1]]
         pfm = pfm[draw_range[0]:draw_range[1]]
-    print(pfm)
     if coordinate_type == 'data':
         ax = axarr[0,0]
         ax.set_xticks(range(1, len(data) + 1))
