@@ -89,7 +89,7 @@ def exact_error(pfm, n):
     return exact_error
 
 
-def calc_info_matrix(pfm, n_occur, correction_type='approx'):
+def calc_info_matrix(pfm, n_occur, correction_type='approx', seq_type='dna'):
     """Calculate information matrix with small sample correction"""
     bases = list(pfm.keys())
     n = len(pfm.values()[0])
@@ -97,9 +97,22 @@ def calc_info_matrix(pfm, n_occur, correction_type='approx'):
         error = approximate_error(pfm, n_occur)
     else:
         error = exact_error(pfm)
-    shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases]) for l in range(0, n)]
-    info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l]))
+    if seq_type == 'dna':
+        shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases]) for l in range(0, n)]
+        info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l]))
                                     for b in bases]) for l in range(0, n)]
+    elif seq_type == 'aa':
+        shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log20(pfm[b][l])) for b in bases]) for l in range(0, n)]
+        info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log20(pfm[b][l]))
+                                    for b in bases]) for l in range(0, n)]
+    else:
+        # Custom
+        logscale = np.log(len(bases))
+        shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log(pfm[b][l])/logscale) for b in bases]) for l in range(0, n)]
+        info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log(pfm[b][l])/logscale)
+                                    for b in bases]) for l in range(0, n)]
+
+
     #info_matrix[info_matrix<0] = 0
     return info_matrix
 
