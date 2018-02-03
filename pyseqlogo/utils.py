@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 def approximate_error(pfm, n_occur):
     """Calculate approximate error for small count motif information content
     Input
@@ -23,6 +24,7 @@ def approximate_error(pfm, n_occur):
     #print(approx_error)
     return approx_error
 
+
 def exact_error(pfm, n):
     """Calculate exact error, using multinomial(na,nc,ng,nt)"""
     # Super Slow. O(n^3)
@@ -35,9 +37,9 @@ def exact_error(pfm, n):
     done = False
     exact_error = 0
     while not done:
-        print (na, nc, ng, nt)
-        exact_error += sum([-p * np.log2(p)
-                            for p in [na / n, nc / n, ng / n, nt / n]])
+        print(na, nc, ng, nt)
+        exact_error += sum(
+            [-p * np.log2(p) for p in [na / n, nc / n, ng / n, nt / n]])
         if nt <= 0:
             # iterate inner loop
             if ng > 0:
@@ -80,10 +82,15 @@ def calc_info_matrix(pfm, n_occur, correction_type='approx'):
         error = approximate_error(pfm, n_occur)
     else:
         error = exact_error(pfm)
-    shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases]) for l in range(0, n)]
+    shannon_entropy = [
+        sum([-pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases])
+        for l in range(0, n)
+    ]
     #print (pd.DataFrame(shannon_entropy))
-    info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l]))
-                                    for b in bases]) for l in range(0, n)]
+    info_matrix = [
+        2 + sum([pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases])
+        for l in range(0, n)
+    ]
     #info_matrix[info_matrix<0] = 0
     return info_matrix
 
@@ -97,7 +104,13 @@ def calc_relative_information(pfm, n_occur, correction_type='approx'):
         info_matrix = calc_info_matrix(pfm, 'exact')
     #print('Info matrix: ')
     #print(pd.DataFrame(info_matrix))
-    relative_info = {base: [np.nan_to_num(prob * info) for prob, info in zip(pfm[base], info_matrix)] for base in bases}
+    relative_info = {
+        base: [
+            np.nan_to_num(prob * info)
+            for prob, info in zip(pfm[base], info_matrix)
+        ]
+        for base in bases
+    }
     return relative_info
 
 
@@ -108,6 +121,7 @@ def calc_pfm(counts):
     df = (df.T / s).T
     df = df.fillna(0)
     return df.to_dict(orient='list'), s.tolist()[0]
+
 
 def pfm_to_tuple(pfm):
     """Convert a dict of pwm basewise to a list of tuples"""
@@ -127,18 +141,18 @@ def pfm_to_tuple(pfm):
         motif_pwm.append(scores)
     return motif_pwm
 
+
 def load_motif(infile=None, counts=None):
     """Load motifs file
     """
     if not counts:
         A, C, G, T = np.loadtxt(infile, unpack=True)
         # Add psuedocounts
-        A = np.array(A) #+ 1
-        C = np.array(C) #+ 1
-        G = np.array(G) #+ 1
-        T = np.array(T) #+ 1
-        counts = OrderedDict({'A': A, 'C': C,
-                          'G': G, 'T': T})
+        A = np.array(A)  #+ 1
+        C = np.array(C)  #+ 1
+        G = np.array(G)  #+ 1
+        T = np.array(T)  #+ 1
+        counts = OrderedDict({'A': A, 'C': C, 'G': G, 'T': T})
     pfm, n_occur = calc_pfm(counts)
     ic = calc_relative_information(pfm, n_occur)
 
@@ -193,8 +207,14 @@ def _set_spine_position(spine, position):
         axis.cla = cla
 
 
-def despine(fig=None, ax=None, top=True, right=True, left=False,
-            bottom=False, offset=None, trim=False):
+def despine(fig=None,
+            ax=None,
+            top=True,
+            right=True,
+            left=False,
+            bottom=False,
+            offset=None,
+            trim=False):
     """Remove the top and right spines from plot(s).
     fig : matplotlib figure, optional
         Figure to despine all axes of, default uses current figure.

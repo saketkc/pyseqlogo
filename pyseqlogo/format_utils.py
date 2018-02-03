@@ -20,6 +20,7 @@ def count_to_pfm(counts):
     df = df.fillna(0)
     return (df.to_dict(orient='list'), total_counts.tolist()[0])
 
+
 def approximate_error(pfm, n_occur):
     """Calculate approximate error for small count motif information content
     Input
@@ -53,8 +54,8 @@ def exact_error(pfm, n):
     done = False
     exact_error = 0
     while not done:
-        exact_error += sum([-p * np.log2(p)
-                            for p in [na / n, nc / n, ng / n, nt / n]])
+        exact_error += sum(
+            [-p * np.log2(p) for p in [na / n, nc / n, ng / n, nt / n]])
         if nt <= 0:
             # iterate inner loop
             if ng > 0:
@@ -98,20 +99,42 @@ def calc_info_matrix(pfm, n_occur, correction_type='approx', seq_type='dna'):
     else:
         error = exact_error(pfm)
     if seq_type == 'dna':
-        shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases]) for l in range(0, n)]
-        info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l]))
-                                    for b in bases]) for l in range(0, n)]
+        shannon_entropy = [
+            sum([
+                -pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases
+            ]) for l in range(0, n)
+        ]
+        info_matrix = [
+            2 + sum(
+                [pfm[b][l] * np.nan_to_num(np.log2(pfm[b][l])) for b in bases])
+            for l in range(0, n)
+        ]
     elif seq_type == 'aa':
-        shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log20(pfm[b][l])) for b in bases]) for l in range(0, n)]
-        info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log20(pfm[b][l]))
-                                    for b in bases]) for l in range(0, n)]
+        shannon_entropy = [
+            sum([
+                -pfm[b][l] * np.nan_to_num(np.log20(pfm[b][l])) for b in bases
+            ]) for l in range(0, n)
+        ]
+        info_matrix = [
+            2 + sum([
+                pfm[b][l] * np.nan_to_num(np.log20(pfm[b][l])) for b in bases
+            ]) for l in range(0, n)
+        ]
     else:
         # Custom
         logscale = np.log(len(bases))
-        shannon_entropy = [sum([-pfm[b][l] * np.nan_to_num(np.log(pfm[b][l])/logscale) for b in bases]) for l in range(0, n)]
-        info_matrix = [2  + sum([pfm[b][l] * np.nan_to_num(np.log(pfm[b][l])/logscale)
-                                    for b in bases]) for l in range(0, n)]
-
+        shannon_entropy = [
+            sum([
+                -pfm[b][l] * np.nan_to_num(np.log(pfm[b][l]) / logscale)
+                for b in bases
+            ]) for l in range(0, n)
+        ]
+        info_matrix = [
+            2 + sum([
+                pfm[b][l] * np.nan_to_num(np.log(pfm[b][l]) / logscale)
+                for b in bases
+            ]) for l in range(0, n)
+        ]
 
     #info_matrix[info_matrix<0] = 0
     return info_matrix
@@ -124,12 +147,17 @@ def calc_relative_information(pfm, n_occur, correction_type='approx'):
         info_matrix = calc_info_matrix(pfm, n_occur)
     else:
         info_matrix = calc_info_matrix(pfm, 'exact')
-    relative_info = {base: [np.nan_to_num(prob * info) for prob, info in zip(pfm[base], info_matrix)] for base in bases}
+    relative_info = {
+        base: [
+            np.nan_to_num(prob * info)
+            for prob, info in zip(pfm[base], info_matrix)
+        ]
+        for base in bases
+    }
     return relative_info
 
 
-def read_alignment(infile, data_type='fasta',
-                   seq_type='dna', pseudo_count=1):
+def read_alignment(infile, data_type='fasta', seq_type='dna', pseudo_count=1):
     """Read alignment file as motif
 
     Parameters
@@ -161,14 +189,13 @@ def read_alignment(infile, data_type='fasta',
     df = pd.DataFrame(data)
     df_counts = df.apply(pd.value_counts, 0)
     total = df_counts[[0]].sum()
-    df_counts =  df_counts[df_counts.index != '-']
+    df_counts = df_counts[df_counts.index != '-']
     # Remove - from counts
     counts_dict = df_counts.to_dict(orient='index')
     counts = {}
     for key, val in counts_dict.iteritems():
         counts[key] = list(val.values())
     return counts, total
-
     """
     summary_align = AlignInfo.SummaryInfo(alignment)
     if seq_type == 'dna':
@@ -185,6 +212,7 @@ def read_alignment(infile, data_type='fasta',
     motif = create_motif_from_alignment(alignment)
     return (motif, summary_align.ic_vector)
     """
+
 
 def create_motif_from_alignment(alignment):
     """Create motif form an alignment object
@@ -203,6 +231,7 @@ def create_motif_from_alignment(alignment):
     motif = motifs.create(records)
     return motif
 
+
 def format_matrix(matrix):
     scores = []
     for i in range(0, len(matrix[matrix.keys()[0]])):
@@ -211,20 +240,22 @@ def format_matrix(matrix):
         scores.append(row_scores)
     return scores
 
+
 def process_data(data, data_type='counts', seq_type='dna'):
     if data_type == 'counts':
         pfm, total = count_to_pfm(data)
         ic = calc_relative_information(pfm, total)
-    elif data_type in ['fasta',  'stockholm']:
+    elif data_type in ['fasta', 'stockholm']:
         #motif, ic = read_alignment(data, data_type, seq_type)
         #pfm = motif.counts.normalize(pseudocounts=1)
         data, total = read_alignment(data, data_type, seq_type)
         pfm, _ = count_to_pfm(data)
         ic = calc_relative_information(pfm, total)
-    elif data_type in ['alignace', 'meme', 'mast',
-                       'transfac', 'pfm', 'sites', 'jaspar']:
+    elif data_type in [
+            'alignace', 'meme', 'mast', 'transfac', 'pfm', 'sites', 'jaspar'
+    ]:
         if data_type in ['jaspar', 'transfac']:
-            motif = motifs.parse(open(data, 'r'),  data_type.upper())[0]
+            motif = motifs.parse(open(data, 'r'), data_type.upper())[0]
             pfm = dict(motif.counts.normalize())
             total = sum(list(motif.counts.viewvalues())[0])
         else:
@@ -236,4 +267,3 @@ def process_data(data, data_type='counts', seq_type='dna'):
             total = motif.counts
         ic = calc_relative_information(pfm, total)
     return (format_matrix(pfm), format_matrix(ic))
-
