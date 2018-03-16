@@ -5,14 +5,16 @@ import matplotlib.pyplot as plt
 
 def approximate_error(pfm, n_occur):
     """Calculate approximate error for small count motif information content
-    Input
-    -----
+
+    Parameters
+    ----------
     pfm: dict
         {'A': [0.1,0.3,0.2], 'T':[0.3,0.1,0.2], 'G': [0.1,0.3,0.3], 'C':[0.5,0.3,0.3]}
     n: int
         Number of sites
-    Output
-    ------
+
+    Returns
+    -------
     approx_error: float
         Approx error
 
@@ -216,6 +218,9 @@ def despine(fig=None,
             offset=None,
             trim=False):
     """Remove the top and right spines from plot(s).
+    Parameters
+    ----------
+
     fig : matplotlib figure, optional
         Figure to despine all axes of, default uses current figure.
     ax : matplotlib axes, optional
@@ -230,6 +235,7 @@ def despine(fig=None,
     trim : bool, optional
         If True, limit spines to the smallest and largest major tick
         on each non-despined axis.
+
     Returns
     -------
     None

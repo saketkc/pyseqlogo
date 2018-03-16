@@ -101,7 +101,7 @@ Default mode is bits
     fig, axarr = draw_logo(ALL_SCORES1)
     fig.tight_layout()
 
-.. figure:: images/output_3_0.png
+.. figure:: docs/images/output_3_0.png
    :alt: png
 
 
@@ -114,7 +114,7 @@ Colorscheme
     fig, axarr = draw_logo(ALL_SCORES1, data_type='bits', colorscheme='meme')
     fig.tight_layout()
 
-.. figure:: images/output_5_0.png
+.. figure:: docs/images/output_5_0.png
    :alt: png
 
 Counts as input
@@ -126,7 +126,7 @@ Counts as input
     fig, axarr = draw_logo(counts, data_type='counts', yaxis='probability')
     fig.tight_layout()
 
-.. figure:: images/output_7_0.png
+.. figure:: docs/images/output_7_0.png
    :alt: png
 
 
@@ -138,7 +138,7 @@ Different font!
     fig, axarr = draw_logo(counts, data_type='counts', yaxis='probability', fontfamily='Comic Sans MS')
     fig.tight_layout()
 
-.. figure:: images/output_9_0.png
+.. figure:: docs/images/output_9_0.png
    :alt: png
 
 Plot conservation scores
@@ -156,7 +156,7 @@ Plot conservation scores
     setup_axis(axarr[1,0], axis='y', majorticks=1, minorticks=0.1)
     fig.tight_layout()
 
-.. figure:: images/output_11_0.png
+.. figure:: docs/images/output_11_0.png
    :alt: png
 
 

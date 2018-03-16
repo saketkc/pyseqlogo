@@ -23,14 +23,16 @@ def count_to_pfm(counts):
 
 def approximate_error(pfm, n_occur):
     """Calculate approximate error for small count motif information content
-    Input
-    -----
+
+    Parameters
+    ----------
     pfm: dict
         {'A': [0.1,0.3,0.2], 'T':[0.3,0.1,0.2], 'G': [0.1,0.3,0.3], 'C':[0.5,0.3,0.3]}
     n: int
         Number of sites
-    Output
-    ------
+
+    Returns
+    -------
     approx_error: float
         Approx error
 
