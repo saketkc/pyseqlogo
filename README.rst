@@ -3,17 +3,17 @@ pyseqlogo
 =========
 
 
-.. image:: https://img.shields.io/pypi/v/pyseqlogo.svg
+.. figure:: https://img.shields.io/pypi/v/pyseqlogo.svg
         :target: https://pypi.python.org/pypi/pyseqlogo
 
-.. image:: https://img.shields.io/travis/saketkc/pyseqlogo.svg
+.. figure:: https://img.shields.io/travis/saketkc/pyseqlogo.svg
         :target: https://travis-ci.org/saketkc/pyseqlogo
 
-.. image:: https://readthedocs.org/projects/pyseqlogo/badge/?version=latest
+.. figure:: https://readthedocs.org/projects/pyseqlogo/badge/?version=latest
         :target: https://pyseqlogo.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/saketkc/pyseqlogo/shield.svg
+.. figure:: https://pyup.io/repos/github/saketkc/pyseqlogo/shield.svg
      :target: https://pyup.io/repos/github/saketkc/pyseqlogo/
      :alt: Updates
 
@@ -101,8 +101,10 @@ Default mode is bits
     fig, axarr = draw_logo(ALL_SCORES1)
     fig.tight_layout()
 
-.. figure:: docs/images/output_3_0.png
-   :alt: png
+.. figure:: ../docs/images/output_3_0.png
+   :align: center
+   :width: 100%
+   :figclass: align center
 
 
 Colorscheme
@@ -114,8 +116,11 @@ Colorscheme
     fig, axarr = draw_logo(ALL_SCORES1, data_type='bits', colorscheme='meme')
     fig.tight_layout()
 
-.. figure:: docs/images/output_5_0.png
-   :alt: png
+.. figure:: ../docs/images/output_5_0.png
+   :align: center
+   :width: 100%
+   :figclass: align center
+
 
 Counts as input
 ===============
@@ -126,8 +131,10 @@ Counts as input
     fig, axarr = draw_logo(counts, data_type='counts', yaxis='probability')
     fig.tight_layout()
 
-.. figure:: docs/images/output_7_0.png
-   :alt: png
+.. figure:: ../docs/images/output_7_0.png
+   :align: center
+   :width: 100%
+   :figclass: align center
 
 
 Different font!
@@ -138,8 +145,10 @@ Different font!
     fig, axarr = draw_logo(counts, data_type='counts', yaxis='probability', fontfamily='Comic Sans MS')
     fig.tight_layout()
 
-.. figure:: docs/images/output_9_0.png
-   :alt: png
+.. figure:: ../docs/images/output_9_0.png
+   :align: center
+   :width: 100%
+   :figclass: align center
 
 Plot conservation scores
 ========================
@@ -156,8 +165,10 @@ Plot conservation scores
     setup_axis(axarr[1,0], axis='y', majorticks=1, minorticks=0.1)
     fig.tight_layout()
 
-.. figure:: docs/images/output_11_0.png
-   :alt: png
+.. figure:: ../docs/images/output_11_0.png
+   :align: center
+   :width: 100%
+   :figclass: align center
 
 
 Credits
