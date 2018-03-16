@@ -44,14 +44,6 @@ pyseqlogo\.pyseqlogo module
     :undoc-members:
     :show-inheritance:
 
-pyseqlogo\.pyseqlogo\_bkup module
----------------------------------
-
-.. automodule:: pyseqlogo.pyseqlogo_bkup
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 pyseqlogo\.utils module
 -----------------------
 
