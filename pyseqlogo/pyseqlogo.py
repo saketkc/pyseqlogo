@@ -101,6 +101,9 @@ def _draw_text_data_coord(height_matrix,
     font = _setup_font(fontsize=fontsize, fontfamily=fontfamily)
     trans_offset = transforms.offset_copy(
         ax.transData, fig=fig, x=1, y=0, units='points')
+    if not isinstance(colorscheme, dict):
+        colorscheme = default_colorschemes[colorscheme]
+
     for xindex, xcol in enumerate(height_matrix):
         yshift = 0
         total_shift = 0
@@ -112,7 +115,7 @@ def _draw_text_data_coord(height_matrix,
                 basechar,
                 transform=trans_offset,
                 fontsize=fontsize,
-                color=default_colorschemes[colorscheme][basechar],
+                color=colorscheme[basechar],
                 ha='center',
                 va='baseline',
                 family='monospace',
