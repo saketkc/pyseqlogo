@@ -1,0 +1,616 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>pyseqlogo package &#8212; pyseqlogo 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="pyseqlogo" href="modules.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="contributing.html" title="Contributing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="pyseqlogo"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyseqlogo 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">pyseqlogo</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">pyseqlogo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyseqlogo</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyseqlogo package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyseqlogo.cli">pyseqlogo.cli module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyseqlogo.colorschemes">pyseqlogo.colorschemes module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyseqlogo.expected_frequencies">pyseqlogo.expected_frequencies module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyseqlogo.format_utils">pyseqlogo.format_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyseqlogo.pyseqlogo">pyseqlogo.pyseqlogo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyseqlogo.utils">pyseqlogo.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyseqlogo.wigoperations">pyseqlogo.wigoperations module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyseqlogo">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="previous chapter">pyseqlogo</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contributing.html"
+                        title="next chapter">Contributing</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pyseqlogo.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+                <li><a href="modules.html">pyseqlogo</a></li>
+              
+              <li>pyseqlogo package</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="pyseqlogo-package">
+<h1>pyseqlogo package<a class="headerlink" href="#pyseqlogo-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyseqlogo.cli">
+<span id="pyseqlogo-cli-module"></span><h2>pyseqlogo.cli module<a class="headerlink" href="#module-pyseqlogo.cli" title="Permalink to this headline">¶</a></h2>
+<p>Console script for pyseqlogo.</p>
+</div>
+<div class="section" id="module-pyseqlogo.colorschemes">
+<span id="pyseqlogo-colorschemes-module"></span><h2>pyseqlogo.colorschemes module<a class="headerlink" href="#module-pyseqlogo.colorschemes" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="pyseqlogo.colorschemes.cbb_palette">
+<code class="descclassname">pyseqlogo.colorschemes.</code><code class="descname">cbb_palette</code><em class="property"> = {'black': '#000000', 'blue': '#0072B2', 'green': '#009E73', 'magenta': '#CC79A7', 'orange': '#E69F00', 'red': '#D55E00', 'skyblue': '#56B4E9', 'yellow': '#F0E442'}</em><a class="headerlink" href="#pyseqlogo.colorschemes.cbb_palette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cinema
+Multiple sequence alignment program (Parry-Smith, D.J., Payne, A.W.R, Michie, A.D. and
+Attwood, T.K. (1997) “CINEMA - A novel Colour INteractive Editor for Multiple Alignments.”
+Gene, 211(2), GC45-56)</p>
+<p>blue: polar positive H, K, R
+red: polar negative D, E
+green: polar neutral S, T, N,Q
+white: non-polar aliphatic A, V, L, I, M
+purple: non-polar aromatic F, Y, W
+brown: P, G
+yellow: C</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="pyseqlogo.colorschemes.cinema">
+<code class="descclassname">pyseqlogo.colorschemes.</code><code class="descname">cinema</code><em class="property"> = {'black': ['A', 'V', 'I', 'L', 'M'], 'blue': ['H', 'K', 'R'], 'green': ['S', 'T', 'N', 'Q'], 'purple': ['F', 'Y', 'W'], 'red': ['D', 'E'], 'yellow': ['C']}</em><a class="headerlink" href="#pyseqlogo.colorschemes.cinema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lesk
+Lesk A.M. (2002) Introduction to Bioinformatics, Oxford University Press, page 187
+yellow: small nonpolar G, A, S, T
+green: hydrophobic C, V, I, L, P, F, Y, M, W
+magenta: polar N, Q, H
+red: negatively charged D, E
+blue: positively charged K, R</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="pyseqlogo.colorschemes.lesk">
+<code class="descclassname">pyseqlogo.colorschemes.</code><code class="descname">lesk</code><em class="property"> = {'blue': ['K', 'R'], 'green': ['C', 'V', 'U', 'L', 'P', 'F', 'Y', 'M', 'W'], 'red': ['D', 'E'], 'yellow': ['G', 'A', 'S', 'T']}</em><a class="headerlink" href="#pyseqlogo.colorschemes.lesk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mod. Cinema
+Modified Cinema
+blue: polar positive H, K, R
+red: polar negative D, E
+green: hydrophobic V, L, I, M
+dark green: non-polar aromatic F, Y, W
+purple: polar neutral S, T, N,Q
+light blue A, P, G, C</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyseqlogo.expected_frequencies">
+<span id="pyseqlogo-expected-frequencies-module"></span><h2>pyseqlogo.expected_frequencies module<a class="headerlink" href="#module-pyseqlogo.expected_frequencies" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyseqlogo.format_utils">
+<span id="pyseqlogo-format-utils-module"></span><h2>pyseqlogo.format_utils module<a class="headerlink" href="#module-pyseqlogo.format_utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyseqlogo.format_utils.approximate_error">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">approximate_error</code><span class="sig-paren">(</span><em>pfm</em>, <em>n_occur</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#approximate_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.approximate_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate approximate error for small count motif information content</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pfm: dict</strong></p>
+<blockquote>
+<div><p>{‘A’: [0.1,0.3,0.2], ‘T’:[0.3,0.1,0.2], ‘G’: [0.1,0.3,0.3], ‘C’:[0.5,0.3,0.3]}</p>
+</div></blockquote>
+<p><strong>n: int</strong></p>
+<blockquote>
+<div><p>Number of sites</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">approx_error: float</p>
+<blockquote class="last">
+<div><p>Approx error</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.format_utils.calc_info_matrix">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">calc_info_matrix</code><span class="sig-paren">(</span><em>pfm</em>, <em>n_occur</em>, <em>correction_type='approx'</em>, <em>seq_type='dna'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#calc_info_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.calc_info_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate information matrix with small sample correction</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.format_utils.calc_relative_information">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">calc_relative_information</code><span class="sig-paren">(</span><em>pfm</em>, <em>n_occur</em>, <em>correction_type='approx'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#calc_relative_information"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.calc_relative_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate relative information matrix</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.format_utils.count_to_pfm">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">count_to_pfm</code><span class="sig-paren">(</span><em>counts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#count_to_pfm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.count_to_pfm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.format_utils.create_motif_from_alignment">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">create_motif_from_alignment</code><span class="sig-paren">(</span><em>alignment</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#create_motif_from_alignment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.create_motif_from_alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create motif form an alignment object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>alignment</strong> : Bio.AlignIO</p>
+<blockquote>
+<div><p>Bio.AligIO input</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>motif</strong> : Bio.motifs object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.format_utils.exact_error">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">exact_error</code><span class="sig-paren">(</span><em>pfm</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#exact_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.exact_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate exact error, using multinomial(na,nc,ng,nt)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.format_utils.format_matrix">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">format_matrix</code><span class="sig-paren">(</span><em>matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#format_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.format_matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.format_utils.process_data">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">process_data</code><span class="sig-paren">(</span><em>data</em>, <em>data_type='counts'</em>, <em>seq_type='dna'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#process_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.process_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.format_utils.read_alignment">
+<code class="descclassname">pyseqlogo.format_utils.</code><code class="descname">read_alignment</code><span class="sig-paren">(</span><em>infile</em>, <em>data_type='fasta'</em>, <em>seq_type='dna'</em>, <em>pseudo_count=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/format_utils.html#read_alignment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.format_utils.read_alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read alignment file as motif</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>infile: str</strong></p>
+<blockquote>
+<div><p>Path to input alignment file</p>
+</div></blockquote>
+<p><strong>data_type: str</strong></p>
+<blockquote>
+<div><p>‘fasta’, ‘stockholm’, etc/. as supported by Bio.AlignIO</p>
+</div></blockquote>
+<p><strong>seq_type: str</strong></p>
+<blockquote>
+<div><p>‘dna’, ‘rna’ or ‘aa’</p>
+</div></blockquote>
+<p><strong>pseudo_count: int</strong></p>
+<blockquote>
+<div><p>psuedo counts to add before calculating information cotent</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>(motif, information_content)</strong> : tuple</p>
+<blockquote class="last">
+<div><p>A motif instance followd by total informatio content of the motif</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyseqlogo.pyseqlogo">
+<span id="pyseqlogo-pyseqlogo-module"></span><h2>pyseqlogo.pyseqlogo module<a class="headerlink" href="#module-pyseqlogo.pyseqlogo" title="Permalink to this headline">¶</a></h2>
+<p>Main module.</p>
+<dl class="class">
+<dt id="pyseqlogo.pyseqlogo.Scale">
+<em class="property">class </em><code class="descclassname">pyseqlogo.pyseqlogo.</code><code class="descname">Scale</code><span class="sig-paren">(</span><em>sx</em>, <em>sy=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/pyseqlogo.html#Scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.pyseqlogo.Scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">matplotlib.backend_bases.RendererBase</span></code></p>
+<p>Scale alphabets using affine transformation</p>
+<dl class="method">
+<dt id="pyseqlogo.pyseqlogo.Scale.draw_path">
+<code class="descname">draw_path</code><span class="sig-paren">(</span><em>renderer</em>, <em>gc</em>, <em>tpath</em>, <em>affine</em>, <em>rgbFace</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/pyseqlogo.html#Scale.draw_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.pyseqlogo.Scale.draw_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws a <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> instance using the
+given affine transform.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.pyseqlogo.draw_logo">
+<code class="descclassname">pyseqlogo.pyseqlogo.</code><code class="descname">draw_logo</code><span class="sig-paren">(</span><em>data</em>, <em>data_type='bits'</em>, <em>seq_type='dna'</em>, <em>yaxis='bits'</em>, <em>colorscheme='classic'</em>, <em>nrow=1</em>, <em>ncol=1</em>, <em>padding=0</em>, <em>draw_range=None</em>, <em>coordinate_type='data'</em>, <em>draw_axis=False</em>, <em>fontfamily='Arial'</em>, <em>debug=False</em>, <em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/pyseqlogo.html#draw_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.pyseqlogo.draw_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw sequence logo</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : str or dict or matrix</p>
+<p><strong>data_type</strong> : str</p>
+<blockquote>
+<div><p>Options : ‘msa’, ‘meme’, ‘jaspar’, ‘counts’, ‘pwm’, ‘pfm’, ‘ic’</p>
+</div></blockquote>
+<p><strong>yaxis</strong> : str</p>
+<blockquote>
+<div><p>Type of plot. Options : ‘probability’, ‘bits’</p>
+</div></blockquote>
+<p><strong>colorscheme</strong> : str</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Colorschemes. Options for DNA <span class="classifier-delimiter">:</span> <span class="classifier">basepairing/classic.</span></dt>
+<dd><p class="first last">AA : hydrophobicity, chemistry</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>nrow</strong> : int</p>
+<blockquote>
+<div><p>Total nrows in column. This doesn’t work with ‘data’ type dict</p>
+</div></blockquote>
+<p><strong>ncol</strong> : int</p>
+<blockquote class="last">
+<div><p>Total nrows in column. This doesn’t work with ‘data’ type dict</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.pyseqlogo.draw_protein">
+<code class="descclassname">pyseqlogo.pyseqlogo.</code><code class="descname">draw_protein</code><span class="sig-paren">(</span><em>data</em>, <em>ax</em>, <em>data_type='bits'</em>, <em>seq_type='dna'</em>, <em>yaxis='bits'</em>, <em>colorscheme='classic'</em>, <em>fontfamily='Arial'</em>, <em>scalex=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/pyseqlogo.html#draw_protein"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.pyseqlogo.draw_protein" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.pyseqlogo.setup_axis">
+<code class="descclassname">pyseqlogo.pyseqlogo.</code><code class="descname">setup_axis</code><span class="sig-paren">(</span><em>ax</em>, <em>axis='x'</em>, <em>majorticks=10</em>, <em>minorticks=5</em>, <em>xrotation=0</em>, <em>yrotation=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/pyseqlogo.html#setup_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.pyseqlogo.setup_axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup axes defaults</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyseqlogo.utils">
+<span id="pyseqlogo-utils-module"></span><h2>pyseqlogo.utils module<a class="headerlink" href="#module-pyseqlogo.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyseqlogo.utils.aggregate_motif_ic">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">aggregate_motif_ic</code><span class="sig-paren">(</span><em>ic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#aggregate_motif_ic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.aggregate_motif_ic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return per base motif information content</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.approximate_error">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">approximate_error</code><span class="sig-paren">(</span><em>pfm</em>, <em>n_occur</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#approximate_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.approximate_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate approximate error for small count motif information content</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pfm: dict</strong></p>
+<blockquote>
+<div><p>{‘A’: [0.1,0.3,0.2], ‘T’:[0.3,0.1,0.2], ‘G’: [0.1,0.3,0.3], ‘C’:[0.5,0.3,0.3]}</p>
+</div></blockquote>
+<p><strong>n: int</strong></p>
+<blockquote>
+<div><p>Number of sites</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">approx_error: float</p>
+<blockquote class="last">
+<div><p>Approx error</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.calc_info_matrix">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">calc_info_matrix</code><span class="sig-paren">(</span><em>pfm</em>, <em>n_occur</em>, <em>correction_type='approx'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#calc_info_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.calc_info_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate information matrix with small sample correction</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.calc_pfm">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">calc_pfm</code><span class="sig-paren">(</span><em>counts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#calc_pfm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.calc_pfm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculat pfm given counts</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.calc_relative_information">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">calc_relative_information</code><span class="sig-paren">(</span><em>pfm</em>, <em>n_occur</em>, <em>correction_type='approx'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#calc_relative_information"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.calc_relative_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate relative information matrix</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.despine">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">despine</code><span class="sig-paren">(</span><em>fig=None</em>, <em>ax=None</em>, <em>top=True</em>, <em>right=True</em>, <em>left=False</em>, <em>bottom=False</em>, <em>offset=None</em>, <em>trim=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#despine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.despine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the top and right spines from plot(s).
+Parameters
+———-</p>
+<dl class="docutils">
+<dt>fig <span class="classifier-delimiter">:</span> <span class="classifier">matplotlib figure, optional</span></dt>
+<dd>Figure to despine all axes of, default uses current figure.</dd>
+<dt>ax <span class="classifier-delimiter">:</span> <span class="classifier">matplotlib axes, optional</span></dt>
+<dd>Specific axes object to despine.</dd>
+<dt>top, right, left, bottom <span class="classifier-delimiter">:</span> <span class="classifier">boolean, optional</span></dt>
+<dd>If True, remove that spine.</dd>
+<dt>offset <span class="classifier-delimiter">:</span> <span class="classifier">int or dict, optional</span></dt>
+<dd>Absolute distance, in points, spines should be moved away
+from the axes (negative values move spines inward). A single value
+applies to all spines; a dict can be used to set offset values per
+side.</dd>
+<dt>trim <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd>If True, limit spines to the smallest and largest major tick
+on each non-despined axis.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.exact_error">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">exact_error</code><span class="sig-paren">(</span><em>pfm</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#exact_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.exact_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate exact error, using multinomial(na,nc,ng,nt)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.load_motif">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">load_motif</code><span class="sig-paren">(</span><em>infile=None</em>, <em>counts=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#load_motif"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.load_motif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load motifs file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.max_motif_ic">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">max_motif_ic</code><span class="sig-paren">(</span><em>ic</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#max_motif_ic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.max_motif_ic" title="Permalink to this definition">¶</a></dt>
+<dd><p>“Return per base max info</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyseqlogo.utils.pfm_to_tuple">
+<code class="descclassname">pyseqlogo.utils.</code><code class="descname">pfm_to_tuple</code><span class="sig-paren">(</span><em>pfm</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/utils.html#pfm_to_tuple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.utils.pfm_to_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a dict of pwm basewise to a list of tuples</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyseqlogo.wigoperations">
+<span id="pyseqlogo-wigoperations-module"></span><h2>pyseqlogo.wigoperations module<a class="headerlink" href="#module-pyseqlogo.wigoperations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyseqlogo.wigoperations.WigReader">
+<em class="property">class </em><code class="descclassname">pyseqlogo.wigoperations.</code><code class="descname">WigReader</code><span class="sig-paren">(</span><em>wig_location</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/wigoperations.html#WigReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.wigoperations.WigReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for reading and querying wigfiles.</p>
+<dl class="attribute">
+<dt id="pyseqlogo.wigoperations.WigReader.get_chromosomes">
+<code class="descname">get_chromosomes</code><a class="headerlink" href="#pyseqlogo.wigoperations.WigReader.get_chromosomes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of chromsome and their sizes
+as in the wig file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>chroms</strong> : dict</p>
+<blockquote>
+<div><p>Dictionary with {“chr”: “Length”} format</p>
+</div></blockquote>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyseqlogo.wigoperations.WigReader.query">
+<code class="descname">query</code><span class="sig-paren">(</span><em>intervals</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyseqlogo/wigoperations.html#WigReader.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyseqlogo.wigoperations.WigReader.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query regions for scores.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>intervals</strong> : list(tuple)</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>A list of tuples with the following format:</dt>
+<dd><p class="first last">(chr, chrStart, chrEnd, strand)</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>scores</strong> : array_like</p>
+<blockquote>
+<div><p>A numpy array containing scores for each tuple</p>
+</div></blockquote>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyseqlogo">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyseqlogo" title="Permalink to this headline">¶</a></h2>
+<p>Top-level package for pyseqlogo.</p>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="modules.html" title="previous chapter (use the left arrow)">pyseqlogo</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="contributing.html" title="next chapter (use the right arrow)">Contributing</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="contributing.html" title="Contributing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="pyseqlogo"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyseqlogo 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >pyseqlogo</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2017, Saket Choudhary. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

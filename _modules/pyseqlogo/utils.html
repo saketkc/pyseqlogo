@@ -1,0 +1,433 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>pyseqlogo.utils &#8212; pyseqlogo 0.1.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pyseqlogo 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">pyseqlogo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">pyseqlogo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+                <li><a href="../index.html">Module code</a></li>
+              
+              <li>pyseqlogo.utils</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for pyseqlogo.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<div class="viewcode-block" id="approximate_error"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.approximate_error">[docs]</a><span class="k">def</span> <span class="nf">approximate_error</span><span class="p">(</span><span class="n">pfm</span><span class="p">,</span> <span class="n">n_occur</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate approximate error for small count motif information content</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    pfm: dict</span>
+<span class="sd">        {&#39;A&#39;: [0.1,0.3,0.2], &#39;T&#39;:[0.3,0.1,0.2], &#39;G&#39;: [0.1,0.3,0.3], &#39;C&#39;:[0.5,0.3,0.3]}</span>
+<span class="sd">    n: int</span>
+<span class="sd">        Number of sites</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    approx_error: float</span>
+<span class="sd">        Approx error</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">bases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pfm</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">approx_error</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bases</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">n_occur</span><span class="p">)</span>
+    <span class="c1">#print(approx_error)</span></div>
+    <span class="k">return</span> <span class="n">approx_error</span>
+
+
+<div class="viewcode-block" id="exact_error"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.exact_error">[docs]</a><span class="k">def</span> <span class="nf">exact_error</span><span class="p">(</span><span class="n">pfm</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate exact error, using multinomial(na,nc,ng,nt)&quot;&quot;&quot;</span>
+    <span class="c1"># Super Slow. O(n^3)</span>
+    <span class="n">bases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pfm</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">na</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">motif</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">])</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">na</span>
+    <span class="n">nc</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">ng</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">nt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">exact_error</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">done</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">na</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">ng</span><span class="p">,</span> <span class="n">nt</span><span class="p">)</span>
+        <span class="n">exact_error</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="n">na</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="n">nc</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="n">ng</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="n">nt</span> <span class="o">/</span> <span class="n">n</span><span class="p">]])</span>
+        <span class="k">if</span> <span class="n">nt</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># iterate inner loop</span>
+            <span class="k">if</span> <span class="n">ng</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># g =&gt; t</span>
+                <span class="n">ng</span> <span class="o">=</span> <span class="n">ng</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">nt</span> <span class="o">=</span> <span class="n">nt</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">nc</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># c -&gt; g</span>
+                <span class="n">nc</span> <span class="o">=</span> <span class="n">nc</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">ng</span> <span class="o">=</span> <span class="n">ng</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># a-&gt;c</span>
+                <span class="n">na</span> <span class="o">=</span> <span class="n">na</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">nc</span> <span class="o">=</span> <span class="n">nc</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ng</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># g =&gt; t</span>
+                <span class="n">ng</span> <span class="o">=</span> <span class="n">ng</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">nt</span> <span class="o">=</span> <span class="n">nt</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">nc</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># c =&gt; g; all t -&gt; g</span>
+                <span class="n">nc</span> <span class="o">=</span> <span class="n">nc</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">ng</span> <span class="o">=</span> <span class="n">nt</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">nt</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">elif</span> <span class="n">na</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># a =&gt; c; all g,t -&gt; c</span>
+                <span class="n">nc</span> <span class="o">=</span> <span class="n">nt</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">na</span> <span class="o">=</span> <span class="n">na</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">nt</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span></div>
+    <span class="k">return</span> <span class="n">exact_correction</span>
+
+
+<div class="viewcode-block" id="calc_info_matrix"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.calc_info_matrix">[docs]</a><span class="k">def</span> <span class="nf">calc_info_matrix</span><span class="p">(</span><span class="n">pfm</span><span class="p">,</span> <span class="n">n_occur</span><span class="p">,</span> <span class="n">correction_type</span><span class="o">=</span><span class="s1">&#39;approx&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate information matrix with small sample correction&quot;&quot;&quot;</span>
+    <span class="n">bases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pfm</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pfm</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">correction_type</span> <span class="o">==</span> <span class="s1">&#39;approx&#39;</span><span class="p">:</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">approximate_error</span><span class="p">(</span><span class="n">pfm</span><span class="p">,</span> <span class="n">n_occur</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">exact_error</span><span class="p">(</span><span class="n">pfm</span><span class="p">)</span>
+    <span class="n">shannon_entropy</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">sum</span><span class="p">([</span><span class="o">-</span><span class="n">pfm</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">pfm</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">l</span><span class="p">]))</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="c1">#print (pd.DataFrame(shannon_entropy))</span>
+    <span class="n">info_matrix</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="mi">2</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">([</span><span class="n">pfm</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">pfm</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">l</span><span class="p">]))</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="c1">#info_matrix[info_matrix&lt;0] = 0</span></div>
+    <span class="k">return</span> <span class="n">info_matrix</span>
+
+
+<div class="viewcode-block" id="calc_relative_information"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.calc_relative_information">[docs]</a><span class="k">def</span> <span class="nf">calc_relative_information</span><span class="p">(</span><span class="n">pfm</span><span class="p">,</span> <span class="n">n_occur</span><span class="p">,</span> <span class="n">correction_type</span><span class="o">=</span><span class="s1">&#39;approx&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate relative information matrix&quot;&quot;&quot;</span>
+    <span class="n">bases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pfm</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">correction_type</span> <span class="o">==</span> <span class="s1">&#39;approx&#39;</span><span class="p">:</span>
+        <span class="n">info_matrix</span> <span class="o">=</span> <span class="n">calc_info_matrix</span><span class="p">(</span><span class="n">pfm</span><span class="p">,</span> <span class="n">n_occur</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">info_matrix</span> <span class="o">=</span> <span class="n">calc_info_matrix</span><span class="p">(</span><span class="n">pfm</span><span class="p">,</span> <span class="s1">&#39;exact&#39;</span><span class="p">)</span>
+    <span class="c1">#print(&#39;Info matrix: &#39;)</span>
+    <span class="c1">#print(pd.DataFrame(info_matrix))</span>
+    <span class="n">relative_info</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">base</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">prob</span> <span class="o">*</span> <span class="n">info</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">prob</span><span class="p">,</span> <span class="n">info</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pfm</span><span class="p">[</span><span class="n">base</span><span class="p">],</span> <span class="n">info_matrix</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">bases</span>
+    <span class="p">}</span></div>
+    <span class="k">return</span> <span class="n">relative_info</span>
+
+
+<div class="viewcode-block" id="calc_pfm"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.calc_pfm">[docs]</a><span class="k">def</span> <span class="nf">calc_pfm</span><span class="p">(</span><span class="n">counts</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculat pfm given counts&quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s1">&#39;list&#39;</span><span class="p">),</span> <span class="n">s</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="pfm_to_tuple"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.pfm_to_tuple">[docs]</a><span class="k">def</span> <span class="nf">pfm_to_tuple</span><span class="p">(</span><span class="n">pfm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a dict of pwm basewise to a list of tuples&quot;&quot;&quot;</span>
+    <span class="n">motif_pwm</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">pfm</span><span class="p">[</span><span class="n">pfm</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]])):</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">pfm</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">b</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+
+        <span class="c1">#scores = [(b, pfm[b][i]) for b in bases]</span>
+
+        <span class="n">scores</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">motif_pwm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">motif_pwm</span>
+
+
+<div class="viewcode-block" id="load_motif"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.load_motif">[docs]</a><span class="k">def</span> <span class="nf">load_motif</span><span class="p">(</span><span class="n">infile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">counts</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load motifs file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">counts</span><span class="p">:</span>
+        <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Add psuedocounts</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  <span class="c1">#+ 1</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>  <span class="c1">#+ 1</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>  <span class="c1">#+ 1</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>  <span class="c1">#+ 1</span>
+        <span class="n">counts</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="n">C</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">:</span> <span class="n">G</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">:</span> <span class="n">T</span><span class="p">})</span>
+    <span class="n">pfm</span><span class="p">,</span> <span class="n">n_occur</span> <span class="o">=</span> <span class="n">calc_pfm</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+    <span class="n">ic</span> <span class="o">=</span> <span class="n">calc_relative_information</span><span class="p">(</span><span class="n">pfm</span><span class="p">,</span> <span class="n">n_occur</span><span class="p">)</span>
+
+    <span class="n">motif_scores</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">motif_scores_agg</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">])):</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[(</span><span class="n">b</span><span class="p">,</span> <span class="n">ic</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">]</span>
+        <span class="n">scores</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">motif_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="n">motif_scores_agg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">ic</span><span class="p">[</span><span class="n">b</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">bases</span><span class="p">]))</span></div>
+    <span class="k">return</span> <span class="n">motif_scores</span><span class="p">,</span> <span class="n">motif_scores_agg</span><span class="p">,</span> <span class="n">pfm</span><span class="p">,</span> <span class="n">counts</span>
+
+
+<div class="viewcode-block" id="aggregate_motif_ic"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.aggregate_motif_ic">[docs]</a><span class="k">def</span> <span class="nf">aggregate_motif_ic</span><span class="p">(</span><span class="n">ic</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return per base motif information content&quot;&quot;&quot;</span>
+    <span class="n">motif_scores_agg</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">ic</span><span class="p">:</span>
+        <span class="n">motif_scores_agg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">position</span><span class="p">]))</span></div>
+    <span class="k">return</span> <span class="n">motif_scores_agg</span>
+
+
+<div class="viewcode-block" id="max_motif_ic"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.max_motif_ic">[docs]</a><span class="k">def</span> <span class="nf">max_motif_ic</span><span class="p">(</span><span class="n">ic</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;&quot;Return per base max info&quot;&quot;&quot;</span>
+    <span class="n">bases</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">]</span>
+    <span class="n">max_bases</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">max_ic</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">postion</span> <span class="ow">in</span> <span class="n">ic</span><span class="p">:</span>
+        <span class="n">max_base</span><span class="p">,</span> <span class="n">m_ic</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">max_ic</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m_ic</span><span class="p">)</span>
+        <span class="n">max_bases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_base</span><span class="p">)</span>
+</div>
+    <span class="k">return</span> <span class="n">max_ic</span><span class="p">,</span> <span class="n">max_base</span>
+
+
+<span class="k">def</span> <span class="nf">_set_spine_position</span><span class="p">(</span><span class="n">spine</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the spine&#39;s position without resetting an associated axis.</span>
+<span class="sd">    As of matplotlib v. 1.0.0, if a spine has an associated axis, then</span>
+<span class="sd">    spine.set_position() calls axis.cla(), which resets locators, formatters,</span>
+<span class="sd">    etc.  We temporarily replace that call with axis.reset_ticks(), which is</span>
+<span class="sd">    sufficient for our purposes.</span>
+
+<span class="sd">    License: MIT</span>
+<span class="sd">    https://github.com/mwaskom/seaborn/blob/0beede57152ce80ce1d4ef5d0c0f1cb61d118375/seaborn/utils.py#L265</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">spine</span><span class="o">.</span><span class="n">axis</span>
+    <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cla</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">cla</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">cla</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">reset_ticks</span>
+    <span class="n">spine</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">cla</span> <span class="o">=</span> <span class="n">cla</span>
+
+
+<div class="viewcode-block" id="despine"><a class="viewcode-back" href="../../pyseqlogo.html#pyseqlogo.utils.despine">[docs]</a><span class="k">def</span> <span class="nf">despine</span><span class="p">(</span><span class="n">fig</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">bottom</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">trim</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Remove the top and right spines from plot(s).</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    fig : matplotlib figure, optional</span>
+<span class="sd">        Figure to despine all axes of, default uses current figure.</span>
+<span class="sd">    ax : matplotlib axes, optional</span>
+<span class="sd">        Specific axes object to despine.</span>
+<span class="sd">    top, right, left, bottom : boolean, optional</span>
+<span class="sd">        If True, remove that spine.</span>
+<span class="sd">    offset : int or dict, optional</span>
+<span class="sd">        Absolute distance, in points, spines should be moved away</span>
+<span class="sd">        from the axes (negative values move spines inward). A single value</span>
+<span class="sd">        applies to all spines; a dict can be used to set offset values per</span>
+<span class="sd">        side.</span>
+<span class="sd">    trim : bool, optional</span>
+<span class="sd">        If True, limit spines to the smallest and largest major tick</span>
+<span class="sd">        on each non-despined axis.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    License</span>
+<span class="sd">    -------</span>
+<span class="sd">    MIT</span>
+
+<span class="sd">    This is borrowed from here: https://github.com/mwaskom/seaborn/blob/0beede57152ce80ce1d4ef5d0c0f1cb61d118375/seaborn/utils.py#L184</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+    <span class="c1"># Get references to the axes we want</span>
+    <span class="k">if</span> <span class="n">fig</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">axes</span>
+    <span class="k">elif</span> <span class="n">fig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">axes</span>
+    <span class="k">elif</span> <span class="n">ax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ax</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">ax_i</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;bottom&quot;</span><span class="p">]:</span>
+            <span class="c1"># Toggle the spine objects</span>
+            <span class="n">is_visible</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">locals</span><span class="p">()[</span><span class="n">side</span><span class="p">]</span>
+            <span class="n">ax_i</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="n">is_visible</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">is_visible</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">offset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">side</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">offset</span>
+                <span class="n">_set_spine_position</span><span class="p">(</span><span class="n">ax_i</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">side</span><span class="p">],</span> <span class="p">(</span><span class="s1">&#39;outward&#39;</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+
+        <span class="c1"># Set the ticks appropriately</span>
+        <span class="k">if</span> <span class="n">bottom</span><span class="p">:</span>
+            <span class="n">ax_i</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_top</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">top</span><span class="p">:</span>
+            <span class="n">ax_i</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">left</span><span class="p">:</span>
+            <span class="n">ax_i</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">tick_right</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">right</span><span class="p">:</span>
+            <span class="n">ax_i</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">tick_left</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">trim</span><span class="p">:</span>
+            <span class="c1"># clip off the parts of the spines that extend past major ticks</span>
+            <span class="n">xticks</span> <span class="o">=</span> <span class="n">ax_i</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">xticks</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                <span class="n">firsttick</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">xticks</span> <span class="o">&gt;=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ax_i</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()),</span>
+                                        <span class="n">xticks</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">lasttick</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">xticks</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ax_i</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()),</span>
+                                       <span class="n">xticks</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">ax_i</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">firsttick</span><span class="p">,</span> <span class="n">lasttick</span><span class="p">)</span>
+                <span class="n">ax_i</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">firsttick</span><span class="p">,</span> <span class="n">lasttick</span><span class="p">)</span>
+                <span class="n">newticks</span> <span class="o">=</span> <span class="n">xticks</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">xticks</span> <span class="o">&lt;=</span> <span class="n">lasttick</span><span class="p">)</span>
+                <span class="n">newticks</span> <span class="o">=</span> <span class="n">newticks</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">newticks</span> <span class="o">&gt;=</span> <span class="n">firsttick</span><span class="p">)</span>
+                <span class="n">ax_i</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">newticks</span><span class="p">)</span>
+
+            <span class="n">yticks</span> <span class="o">=</span> <span class="n">ax_i</span><span class="o">.</span><span class="n">get_yticks</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">yticks</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                <span class="n">firsttick</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">yticks</span> <span class="o">&gt;=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ax_i</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()),</span>
+                                        <span class="n">yticks</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">lasttick</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">yticks</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ax_i</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()),</span>
+                                       <span class="n">yticks</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">ax_i</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">firsttick</span><span class="p">,</span> <span class="n">lasttick</span><span class="p">)</span>
+                <span class="n">ax_i</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_bounds</span><span class="p">(</span><span class="n">firsttick</span><span class="p">,</span> <span class="n">lasttick</span><span class="p">)</span>
+                <span class="n">newticks</span> <span class="o">=</span> <span class="n">yticks</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">yticks</span> <span class="o">&lt;=</span> <span class="n">lasttick</span><span class="p">)</span>
+                <span class="n">newticks</span> <span class="o">=</span> <span class="n">newticks</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">newticks</span> <span class="o">&gt;=</span> <span class="n">firsttick</span><span class="p">)</span></div>
+                <span class="n">ax_i</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">newticks</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">pyseqlogo 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2017, Saket Choudhary. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
