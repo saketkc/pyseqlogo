@@ -9,10 +9,6 @@ pyseqlogo
 .. figure:: https://img.shields.io/travis/saketkc/pyseqlogo.svg
         :target: https://travis-ci.org/saketkc/pyseqlogo
 
-.. figure:: https://readthedocs.org/projects/pyseqlogo/badge/?version=latest
-        :target: https://pyseqlogo.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
 .. figure:: https://pyup.io/repos/github/saketkc/pyseqlogo/shield.svg
      :target: https://pyup.io/repos/github/saketkc/pyseqlogo/
      :alt: Updates
@@ -22,7 +18,7 @@ Python package to plot sequence logos
 
 
 * Free software: MIT license
-* Documentation (Pending): https://pyseqlogo.readthedocs.io.
+* Documentation: http://saketkc.github.io/pyseqlogo
 
 .. code:: python
 
@@ -101,7 +97,7 @@ Default mode is bits
     fig, axarr = draw_logo(ALL_SCORES1)
     fig.tight_layout()
 
-.. figure:: ../docs/images/output_3_0.png
+.. figure:: examples/output_3_0.png
    :align: center
    :width: 100%
    :figclass: align center
@@ -116,7 +112,7 @@ Colorscheme
     fig, axarr = draw_logo(ALL_SCORES1, data_type='bits', colorscheme='meme')
     fig.tight_layout()
 
-.. figure:: ../docs/images/output_5_0.png
+.. figure:: docs/images/output_5_0.png
    :align: center
    :width: 100%
    :figclass: align center
@@ -131,7 +127,7 @@ Counts as input
     fig, axarr = draw_logo(counts, data_type='counts', yaxis='probability')
     fig.tight_layout()
 
-.. figure:: ../docs/images/output_7_0.png
+.. figure:: docs/images/output_7_0.png
    :align: center
    :width: 100%
    :figclass: align center
@@ -145,7 +141,7 @@ Different font!
     fig, axarr = draw_logo(counts, data_type='counts', yaxis='probability', fontfamily='Comic Sans MS')
     fig.tight_layout()
 
-.. figure:: ../docs/images/output_9_0.png
+.. figure:: docs/images/output_9_0.png
    :align: center
    :width: 100%
    :figclass: align center
@@ -165,7 +161,7 @@ Plot conservation scores
     setup_axis(axarr[1,0], axis='y', majorticks=1, minorticks=0.1)
     fig.tight_layout()
 
-.. figure:: ../docs/images/output_11_0.png
+.. figure:: docs/images/output_11_0.png
    :align: center
    :width: 100%
    :figclass: align center
