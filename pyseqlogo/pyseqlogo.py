@@ -156,16 +156,15 @@ def _draw_text_display_coord(height_matrix,
     width, height = bbox.width, bbox.height
     width *= fig.dpi
     height *= fig.dpi
-    fontsize = (height / 1.7) * 72.0 / fig.dpi  #/72.0
+    fontsize = (height / 1.7) * 72.0 / fig.dpi
     font = _setup_font(fontsize=fontsize, fontfamily=fontfamily)
-    xshift = 160  #ax.transData.transform((0, 0))[0]
+    xshift = 160
     xshifts_list.append(xshift)
-    #30
-    #print (ax.transData.transform((1, 0))[0] - ax.transData.transform((2, 0))[0])
     trans_offset = transforms.offset_copy(
         ax.transData, fig=fig, x=xshift, y=0, units='dots')
     ax.trans_offsets = [trans_offset]
-    #ax.axvline(1)##, transform=trans_offset)
+    if not isinstance(colorscheme, dict):
+        colorscheme = default_colorschemes[colorscheme]
     for xindex, xcol in enumerate(height_matrix):
         yshift = 0
         total_shift = 0
@@ -177,7 +176,7 @@ def _draw_text_display_coord(height_matrix,
                 basechar,
                 transform=trans_offset,
                 fontsize=fontsize,
-                color=default_colorschemes[colorscheme][basechar],
+                color=colorscheme[basechar],
                 va='baseline',
                 family='monospace',
                 ha='center',
@@ -274,7 +273,8 @@ def draw_logo(data,
               coordinate_type='data',
               draw_axis=False,
               fontfamily='Arial',
-              debug=False):
+              debug=False,
+              ax=None):
     """Draw sequence logo
 
     Parameters
@@ -303,11 +303,33 @@ def draw_logo(data,
         sys.stderr.write(
             'yaxis can be {}, got {}\n'.format(['probability', 'bits'], yaxis))
         sys.exit(1)
+    if not ax:
+        fig, axarr = plt.subplots(nrow, ncol, squeeze=False)
+        fig.set_size_inches(((len(data) + 1) * ncol, 3 * nrow))
+        ax = axarr[0, 0]
+    else:
+        fig = ax.get_figure()
+        axarr = np.array([[ax]])
+        ax.set_xticks(range(1, len(data) + 1))
 
-    fig, axarr = plt.subplots(nrow, ncol, squeeze=False)
-    fig.set_size_inches(((len(data) + 1) * ncol, 3 * nrow))
+        ax.set_xticklabels(range(1, len(data) + 1), rotation=90)
+        pfm, ic = process_data(data, data_type=data_type, seq_type=seq_type)
+        if yaxis == 'probability':
+            xshifts_list = _draw_text_data_coord(
+                pfm, ax, fontfamily, colorscheme, draw_axis=draw_axis)
+        else:
+            xshifts_list = _draw_text_data_coord(
+                ic, ax, fontfamily, colorscheme, draw_axis=draw_axis)
+        #ax.axis('off')
+        #despine(
+        #    ax=ax,
+        #    trim=False,
+        #    top=True,
+        #    right=True,
+        #    bottom=True,
+        #    offset=0)
+        return
 
-    ax = axarr[0, 0]
     #ax.set_xticks(range(1, len(data) + 1))
     if draw_axis:
         ax.set_xticks(range(len(data)))
@@ -366,7 +388,7 @@ def draw_logo(data,
                 top=True,
                 right=True,
                 bottom=True,
-                offset=160)
+                offset=00)
             axi = axarr[i, j]
             #axi.get_shared_x_axes().join(axi, ax)
             #axi.set_xticklabels([])
