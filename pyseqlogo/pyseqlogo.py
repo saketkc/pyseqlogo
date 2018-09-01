@@ -120,7 +120,8 @@ def _draw_text_data_coord(height_matrix,
                 va='baseline',
                 family='monospace',
                 #va='baseline',
-                fontproperties=font, )
+                fontproperties=font,
+            )
             txt.set_path_effects([Scale(1.0, basescore)])
             fig.canvas.draw()
             window_ext = txt.get_window_extent(
@@ -202,8 +203,8 @@ def _draw_text_display_coord(height_matrix,
             trans_offset1 = transforms.offset_copy(
                 ax.transData,
                 fig=fig,
-                x=xshift + (window_ext.width * (scalex - 2) + 10 *
-                            (scalex - 2)),
+                x=xshift +
+                (window_ext.width * (scalex - 2) + 10 * (scalex - 2)),
                 y=0,
                 units='dots')
 
@@ -300,8 +301,8 @@ def draw_logo(data,
 
     """
     if yaxis not in ['probability', 'bits']:
-        sys.stderr.write(
-            'yaxis can be {}, got {}\n'.format(['probability', 'bits'], yaxis))
+        sys.stderr.write('yaxis can be {}, got {}\n'.format(
+            ['probability', 'bits'], yaxis))
         sys.exit(1)
     if not ax:
         fig, axarr = plt.subplots(nrow, ncol, squeeze=False)
