@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Main module."""
-from __future__ import division
-from __future__ import absolute_import
+
+
 import sys
 import matplotlib.pyplot as plt
 
@@ -250,9 +250,9 @@ def draw_protein(data,
                  scalex=3):
     #ax.set_xticks(range(1, len(data)*3 + 1))
     if yaxis == 'probability':
-        ax.set_yticks(range(0, 2))
+        ax.set_yticks(list(range(0, 2)))
     elif yaxis == 'bits':
-        ax.set_yticks(range(0, 3))
+        ax.set_yticks(list(range(0, 3)))
 
     #ax.set_xticklabels(range(1, len(data) + 1), rotation=90)
     setup_axis(ax, 'y', majorticks=1, minorticks=0.1)
@@ -310,9 +310,9 @@ def draw_logo(data,
     else:
         fig = ax.get_figure()
         axarr = np.array([[ax]])
-        ax.set_xticks(range(1, len(data) + 1))
+        ax.set_xticks(list(range(1, len(data) + 1)))
 
-        ax.set_xticklabels(range(1, len(data) + 1), rotation=90)
+        ax.set_xticklabels(list(range(1, len(data) + 1)), rotation=90)
         pfm, ic = process_data(data, data_type=data_type, seq_type=seq_type)
         if yaxis == 'probability':
             xshifts_list = _draw_text_data_coord(
@@ -332,11 +332,11 @@ def draw_logo(data,
 
     #ax.set_xticks(range(1, len(data) + 1))
     if draw_axis:
-        ax.set_xticks(range(len(data)))
+        ax.set_xticks(list(range(len(data))))
         if yaxis == 'probability':
-            ax.set_yticks(range(0, 2))
+            ax.set_yticks(list(range(0, 2)))
         elif yaxis == 'bits':
-            ax.set_yticks(range(0, 3))
+            ax.set_yticks(list(range(0, 3)))
 
         #ax.set_xticklabels(range(1, len(data) + 1), rotation=90)
         setup_axis(ax, 'y', majorticks=1, minorticks=0.1)
@@ -355,9 +355,9 @@ def draw_logo(data,
         pfm = pfm[draw_range[0]:draw_range[1]]
     if coordinate_type == 'data':
         ax = axarr[0, 0]
-        ax.set_xticks(range(1, len(data) + 1))
+        ax.set_xticks(list(range(1, len(data) + 1)))
 
-        ax.set_xticklabels(range(1, len(data) + 1), rotation=90)
+        ax.set_xticklabels(list(range(1, len(data) + 1)), rotation=90)
         if yaxis == 'probability':
             xshifts_list = _draw_text_data_coord(
                 pfm, ax, fontfamily, colorscheme, draw_axis=draw_axis)

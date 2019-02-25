@@ -71,7 +71,7 @@ cbb_palette_values = [
 cbb_palette_colors = [
     'black', 'orange', 'skyblue', 'green', 'yellow', 'blue', 'red', 'magenta'
 ]
-cbb_palette = dict(zip(cbb_palette_colors, cbb_palette_values))
+cbb_palette = dict(list(zip(cbb_palette_colors, cbb_palette_values)))
 
 # CINEMA
 """
@@ -96,7 +96,7 @@ def _unwrap_dict(dict_of_list):
         if not isinstance(values, list):
             values = [values]
         for value in values:
-            if value in unwrapped_dict.keys():
+            if value in list(unwrapped_dict.keys()):
                 raise ValueError('Duplicated key : {}'.format(value))
             unwrapped_dict[value] = key
     return unwrapped_dict

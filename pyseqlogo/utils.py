@@ -39,7 +39,7 @@ def exact_error(pfm, n):
     done = False
     exact_error = 0
     while not done:
-        print(na, nc, ng, nt)
+        print((na, nc, ng, nt))
         exact_error += sum(
             [-p * np.log2(p) for p in [na / n, nc / n, ng / n, nt / n]])
         if nt <= 0:
@@ -79,7 +79,7 @@ def exact_error(pfm, n):
 def calc_info_matrix(pfm, n_occur, correction_type='approx'):
     """Calculate information matrix with small sample correction"""
     bases = list(pfm.keys())
-    n = len(pfm.values()[0])
+    n = len(list(pfm.values())[0])
     if correction_type == 'approx':
         error = approximate_error(pfm, n_occur)
     else:
@@ -128,7 +128,7 @@ def calc_pfm(counts):
 def pfm_to_tuple(pfm):
     """Convert a dict of pwm basewise to a list of tuples"""
     motif_pwm = []
-    for i in range(0, len(pfm[pfm.keys()[0]])):
+    for i in range(0, len(pfm[list(pfm.keys())[0]])):
         scores = []
         for b in bases:
             try:
