@@ -247,6 +247,9 @@ def process_data(data, data_type='counts', seq_type='dna'):
     if data_type == 'counts':
         pfm, total = count_to_pfm(data)
         ic = calc_relative_information(pfm, total)
+    elif data_type == 'probability':
+        pfm = data
+        ic = calc_relative_information(pfm, 10)
     elif data_type in ['fasta', 'stockholm']:
         #motif, ic = read_alignment(data, data_type, seq_type)
         #pfm = motif.counts.normalize(pseudocounts=1)
