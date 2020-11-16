@@ -7,4 +7,4 @@ seaborn>=0.8.1
 six>=1.11.0
 Click>=6.0
 click-help-colors>=0.3
-Biopython>=1.70
+Biopython>=1.70,<1.78
